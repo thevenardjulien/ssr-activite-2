@@ -4,7 +4,6 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import express from "express";
 import App from "../src/App";
-import { fetchError } from "./utils/fetchError";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -21,7 +20,7 @@ app.get("/", async (req, res) => {
 
 
       if (!fetchTodos.ok) {
-        throw new fetchError(fetchTodos.statusText, fetchTodos.status, fetchTodos.url);
+        throw new Error(`Une erreur est survenue lors de la récupération des todos : ${fetchTodos.status} ${fetchTodos.statusText}`);
       }
 
       const todos = await fetchTodos.json();
@@ -32,7 +31,7 @@ app.get("/", async (req, res) => {
       ));
 
     } catch (error) {
-      console.error("Erreur lors du fetch des todos :", error);
+      console.log(error);
       return res.status(500).send("Une erreur est survenue lors de la récupération des todos");
     }
 
