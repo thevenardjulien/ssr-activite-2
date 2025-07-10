@@ -5,6 +5,6 @@ import App from "./App.jsx";
 hydrateRoot(
   document.getElementById("root"),
   <React.StrictMode>
-    <App todos={window.TODOS} />
+    <App />
   </React.StrictMode>
 );

@@ -3,10 +3,12 @@ import React from "react";
 function App({ todos }) {
   return (
     <div>
-      <p>HELLO WORLD</p>
-      {todos && todos.map((todo) => (
-        <p key={todo.id}>{todo.title}</p>
-      ))}
+      <p>TODOLIST</p>
+      <ul>
+        {todos && todos.map((todo) => (
+          <li key={todo.id}>{todo.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
