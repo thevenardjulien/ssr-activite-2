@@ -16,7 +16,7 @@ app.get("/", async (req, res) => {
 
     try {
       const fetchTodos = await fetch(
-        "https://jsonplaceholder.typicode.com/todoqqs"
+        "https://jsonplaceholder.typicode.com/todosss"
       );
 
       if (!fetchTodos.ok) {
@@ -30,22 +30,26 @@ app.get("/", async (req, res) => {
       return res.send(
         data.replace(
           '<div id="root"></div>',
-          `<div id="root">${ReactDOMServer.renderToStaticMarkup(
+          `<div id="root">${ReactDOMServer.renderToString(
             <App todos={todos} />
-          )}</div>`
+          )}</div>
+          <script>
+            window.__INITIAL__DATA__ = ${JSON.stringify(todos)};
+          </script>
+          `
         )
       );
     } catch (error) {
       console.log(error);
       return res
         .status(500)
-        .send("Une erreur est survenue lors de la récupération des todos");
+        .send(`${error}`);
     }
   });
 });
 
 app.use(
-  express.static(path.resolve(__dirname, "..", "build"), { maxAge: "30d" })
+  express.static(path.resolve(__dirname, "..", "dist"), { maxAge: "30d" })
 );
 
 app.listen(PORT, () => {
