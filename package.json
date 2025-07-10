@@ -1,0 +1,24 @@
+{
+  "name": "ssr-activite-2",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build:client": "esbuild src/main.jsx --bundle --outfile=dist/bundle.js --loader:.js=jsx",
+    "build:server": "esbuild server/server.jsx --bundle --outfile=build/server.js --platform=node",
+    "build": "npm run build:client && npm run build:server",
+    "start": "npm run build && node ./build/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "express": "^5.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.25.6",
+    "vite": "^7.0.3"
+  }
+}
