@@ -4,6 +4,7 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import express from "express";
 import App from "../src/App";
+import { fetchError } from "./utils/fetchError";
 
 const PORT = process.env.PORT || 3000;
 const app = express();
@@ -15,20 +16,26 @@ app.get("/", async (req, res) => {
     }
 
     try {
-      const fetchTodos = await fetch("https://jsonplaceholder.typicode.com/todos");
+      const fetchTodos = await fetch("https://jsonplaceholder.typicode.com/todoqqs");
+
+
+
       if (!fetchTodos.ok) {
-        throw new Error("Erreur lors de la récupération des todos");
+        throw new fetchError(fetchTodos.statusText, fetchTodos.status, fetchTodos.url);
       }
+
       const todos = await fetchTodos.json();
 
       return res.send(data.replace(
         '<div id="root"></div>',
         `<div id="root">${ReactDOMServer.renderToStaticMarkup(<App todos={todos} />)}</div>`
       ));
+
     } catch (error) {
       console.error("Erreur lors du fetch des todos :", error);
-      return res.status(500).send("Une erreur est survenue lors de la récupération des todos.");
+      return res.status(500).send("Une erreur est survenue lors de la récupération des todos");
     }
+
   });
 });
 
