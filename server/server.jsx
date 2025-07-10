@@ -16,7 +16,7 @@ app.get("/", async (req, res) => {
 
     try {
       const fetchTodos = await fetch(
-        "https://jsonplaceholder.typicode.com/todosss"
+        "https://jsonplaceholder.typicode.com/todos"
       );
 
       if (!fetchTodos.ok) {
