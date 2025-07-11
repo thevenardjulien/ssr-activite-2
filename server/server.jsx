@@ -16,7 +16,7 @@ app.get("/", async (req, res) => {
 
     try {
       const fetchTodos = await fetch(
-        "https://jsonplaceholder.typicode.com/todos"
+        "https://jsonplaceholder.typicode.com/todos?_limit=10"
       );
 
       if (!fetchTodos.ok) {
@@ -40,10 +40,10 @@ app.get("/", async (req, res) => {
         )
       );
     } catch (error) {
-      console.log(error);
+      console.log(error.stack);
       return res
         .status(500)
-        .send(`${error}`);
+        .send(`${error.message}`);
     }
   });
 });
